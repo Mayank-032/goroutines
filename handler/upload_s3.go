@@ -21,6 +21,12 @@ type Payload struct {
 	Name string `json:"name"`
 }
 
+type Resp struct {
+	Message   string `json:"message"`
+	IsSuccess bool   `json:"is_succes"`
+	Error     string `json:"error"`
+}
+
 func (p *Payload) UploadToS3(wg *sync.WaitGroup) {
 	defer wg.Done()
 
