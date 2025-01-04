@@ -22,6 +22,7 @@ type Payload struct {
 }
 
 type Resp struct {
+	PId       int    `json:"pid"`
 	Message   string `json:"message"`
 	IsSuccess bool   `json:"is_succes"`
 	Error     string `json:"error"`

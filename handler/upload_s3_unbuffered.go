@@ -17,6 +17,7 @@ func (p *Payload) UploadToS3WithUnbufferedChannel(wg *sync.WaitGroup, result cha
 	if err != nil {
 		log.Println("err: ", err.Error())
 		result <- Resp{
+			PId:       p.Id,
 			Message:   "unable to upload to S3",
 			IsSuccess: false,
 			Error:     err.Error(),
@@ -25,6 +26,7 @@ func (p *Payload) UploadToS3WithUnbufferedChannel(wg *sync.WaitGroup, result cha
 	}
 
 	result <- Resp{
+		PId:       p.Id,
 		Message:   "successfully uploaded to S3",
 		IsSuccess: true,
 	}
@@ -53,7 +55,7 @@ func UploadToS3WithUnbufferedChannel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var wg sync.WaitGroup
-	var results chan Resp
+	var results = make(chan Resp)
 	for _, payload := range data.Payloads {
 		wg.Add(1)
 		go payload.UploadToS3WithUnbufferedChannel(&wg, results)
