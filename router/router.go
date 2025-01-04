@@ -8,4 +8,5 @@ import (
 func InitRoutes(router *http.ServeMux) {
 	router.HandleFunc("/test", handler.UploadToS3WithSimpleGoRoutine)
 	router.HandleFunc("/test/unbuffered", handler.UploadToS3WithUnbufferedChannel)
+	router.HandleFunc("/test/buffered", handler.UploadToS3WithBufferedChannelAndWorkedPool)
 }
